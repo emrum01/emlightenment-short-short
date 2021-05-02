@@ -3,40 +3,14 @@
     <header class="header">
       <h1 class="logo">
         <a href="https://microcms.io">
-          <img class="logoImg" src="/images/logo.svg" alt="microCMS" />
+          <img
+            class="logoImg"
+            src="/images/enlightenment_log.jpg"
+            alt="enlightenment_short_short"
+          />
         </a>
+        <div class="test">enlightenment</div>
       </h1>
-      <button class="menuBtn" @click="toggleOpen()">
-        <img src="/images/icon_menu.svg" alt="menu" />
-      </button>
-      <div v-if="open" class="mask" @click="setOpen(false)"></div>
-
-      <div class="menu" :class="{ isOpen: open }">
-        <ul class="lists">
-          <li class="list">
-            <a href="https://microcms.io/pricing">料金</a>
-          </li>
-          <li class="list">
-            <a href="https://document.microcms.io">ドキュメント</a>
-          </li>
-          <li class="list">
-            <a href="https://blog.microcms.io">ブログ</a>
-          </li>
-          <li class="list">
-            <a href="https://microcms.io/contact">お問い合わせ</a>
-          </li>
-        </ul>
-        <ul class="lists">
-          <li class="list">
-            <a class="signin" href="https://app.microcms.io/signin">ログイン</a>
-          </li>
-          <li class="list">
-            <a class="signup" :href="`https://app.microcms.io${params}`"
-              >新規登録</a
-            >
-          </li>
-        </ul>
-      </div>
     </header>
     <div class="empty"></div>
   </div>
@@ -53,18 +27,10 @@ export default {
   mounted() {
     this.params = location.search || '';
   },
-  methods: {
-    setOpen(value) {
-      this.open = value;
-    },
-    toggleOpen() {
-      this.open = !this.open;
-    },
-  },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media (min-width: 800px) {
   .header {
     position: fixed;
@@ -78,7 +44,11 @@ export default {
     padding: 12px 40px;
     z-index: 10;
     border-bottom: 1px solid var(--color-border);
-    background-color: #fff;
+    background-color: #3f3934;
+  }
+
+  .test {
+    font-family: 'HitchhikerFont';
   }
 
   .empty {
@@ -165,19 +135,19 @@ export default {
     padding: 16px;
     z-index: 10;
     border-bottom: 1px solid var(--color-border);
+    font-family: 'HitchhikerFont';
   }
-
   .empty {
     height: 61px;
   }
 
   .logo {
     display: inline-block;
-    height: 28px;
+    height: 56px;
   }
 
   .logoImg {
-    height: 28px;
+    height: 56px;
   }
 
   .menuBtn {
