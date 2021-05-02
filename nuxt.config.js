@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Sass from 'sass';
+import Fiber from 'fibers';
 require('dotenv').config();
 const { API_KEY, SERVICE_ID, GA_ID } = process.env;
 
@@ -88,11 +90,15 @@ export default {
   css: [
     '@/assets/styles/reset.css',
     '@/assets/styles/colors.css',
+    { src: '~assets/scss/_variable.scss' },
     {
       src: '~/node_modules/highlight.js/styles/hybrid.css',
       lang: 'css',
     },
   ],
+  styleResources: {
+    scss: ['~/assets/scss/_variable.scss'],
+  },
   /*
    ** Plugins to load before mounting the App
    */
@@ -113,6 +119,7 @@ export default {
     ['@nuxtjs/sitemap'],
     '@nuxtjs/feed',
     '@nuxtjs/proxy',
+    '@nuxtjs/style-resources',
   ],
   dayjs: {
     locales: ['ja'],
@@ -154,6 +161,14 @@ export default {
           importFrom: ['assets/styles/colors.css'],
         },
         'postcss-nested': {},
+      },
+    },
+    loaders: {
+      scss: {
+        implementation: Sass,
+        sassOptions: {
+          fiber: Fiber,
+        },
       },
     },
     extend(config, ctx) {

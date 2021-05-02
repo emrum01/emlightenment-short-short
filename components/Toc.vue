@@ -1,6 +1,6 @@
 <template>
   <div v-if="visible" class="wrapper">
-    <h4 class="title">目次</h4>
+    <h4 class="title">お題</h4>
     <ul class="lists">
       <li v-for="item in toc" :key="item.id" :class="`list ${item.name}`">
         <n-link v-scroll-to="`#${item.id}`" to>
