@@ -2,14 +2,7 @@
   <div>
     <header class="header">
       <h1 class="logo">
-        <a href="https://microcms.io">
-          <img
-            class="logoImg"
-            src="/images/enlightenment_log.jpg"
-            alt="enlightenment_short_short"
-          />
-        </a>
-        <div class="test">enlightenment</div>
+        enlightenment
       </h1>
     </header>
     <div class="empty"></div>
@@ -40,7 +33,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 12px 40px;
     z-index: 10;
     border-bottom: 1px solid var(--color-border);
@@ -57,13 +50,10 @@ export default {
   }
 
   .logo {
-    padding: 8px 0;
-    margin-right: 30px;
-
-    a {
-      display: block;
-      height: 28px;
-    }
+    display: flex;
+    font-family: 'HitchhikerFont';
+    justify-content: center;
+    color: #e68048;
   }
 
   .logoImg {
