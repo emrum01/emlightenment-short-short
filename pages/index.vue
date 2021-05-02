@@ -139,7 +139,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @media (min-width: 1160px) {
   .loader {
     color: #ccc;
@@ -189,10 +189,12 @@ export default {
 
   .container {
     width: 820px;
+    margin-top: 60px;
   }
 
   .aside {
     width: 300px;
+    margin-top: 60px;
   }
 
   .banner {
