@@ -22,20 +22,19 @@ export default {
       prefix: 'og: http://ogp.me/ns#',
       lang: 'ja',
     },
-    titleTemplete: '%s | microCMSブログ',
+    titleTemplete: '%s | enlightenmentショートショート',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content:
-          'microCMSはAPIベースの日本製ヘッドレスCMSです。本ブログはmicroCMSの開発メンバーがmicroCMSの使い方や技術的な内容を発信するブログです。',
+        content: 'お題にそって30分くらいで小説を書く',
       },
       {
         hid: 'og:site_name',
         property: 'og:site_name',
-        content: 'microCMSブログ',
+        content: 'enlightenmentショートショート',
       },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       {
@@ -43,17 +42,20 @@ export default {
         property: 'og:url',
         content: 'https://blog.microcms.io',
       },
-      { hid: 'og:title', property: 'og:title', content: 'microCMSブログ' },
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'emlightenmentショートショート',
+      },
       {
         hid: 'og:description',
         property: 'og:description',
-        content:
-          'microCMSはAPIベースの日本製ヘッドレスCMSです。本ブログはmicroCMSの開発メンバーがmicroCMSの使い方や技術的な内容を発信するブログです。',
+        content: 'お題にそって30分くらいで小説を書く',
       },
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://blog.microcms.io/images/ogp.png',
+        content: 'https://blog.microcms.io/images/newlogo.png',
       },
 
       { name: 'twitter:card', content: 'summary_large_image' },
