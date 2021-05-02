@@ -61,10 +61,8 @@ export default {
     padding: 16px;
     z-index: 10;
     border-bottom: 1px solid var(--color-border);
-    font-family: 'HitchhikerFont';
   }
   .logo {
-    display: flex;
     font-family: 'HitchhikerFont';
     justify-content: center;
     color: #e68048;
