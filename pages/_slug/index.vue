@@ -35,7 +35,6 @@
         </div>
         <Breadcrumb :category="category" />
         <div class="main">
-          <Share :id="id" :title="title" />
           <div class="container">
             <h1 class="title">{{ title }}</h1>
             <Meta
@@ -46,8 +45,6 @@
             <Toc :id="id" :toc="toc" :visible="toc_visible" />
             <Post :body="body" />
             <Writer v-if="writer" :writer="writer" />
-            <Partner v-if="partner" :partner="partner" />
-            <Conversion :id="id" />
             <RelatedBlogs
               v-if="related_blogs.length > 0"
               :blogs="related_blogs"
@@ -56,7 +53,6 @@
         </div>
       </article>
       <aside class="aside">
-        <Banner :id="`blog-${id}`" :banner="banner" />
         <Search />
         <Categories :categories="categories" />
         <PopularArticles :contents="popularArticles" />
@@ -205,6 +201,7 @@ export default {
     justify-content: space-between;
     width: 1160px;
     margin: 20px auto 0;
+    margin-top: 10px;
   }
 
   .article {
@@ -213,6 +210,7 @@ export default {
 
   .aside {
     width: 300px;
+    margin-top: 60px;
   }
 
   .main {
@@ -231,11 +229,6 @@ export default {
     background-color: #2b2c30;
     color: #fff;
     border-radius: 5px;
-
-    img {
-      width: 160px;
-      margin-top: 10px;
-    }
 
     p {
       margin-top: 30px;
@@ -275,6 +268,7 @@ export default {
     flex: 1;
     background-color: #fff;
     margin-left: 80px;
+    margin-top: 60px;
     -webkit-font-smoothing: antialiased;
   }
 

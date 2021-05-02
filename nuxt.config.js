@@ -120,6 +120,7 @@ export default {
     '@nuxtjs/feed',
     '@nuxtjs/proxy',
     '@nuxtjs/style-resources',
+    '@nuxtjs/vuetify',
   ],
   dayjs: {
     locales: ['ja'],
