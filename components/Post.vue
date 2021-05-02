@@ -1,5 +1,14 @@
-<template>
-  <div class="post" v-html="body"></div>
+<template lang="pug">
+  div
+    div
+      v-tabs
+        v-tab
+          |banri
+        v-tab
+          |takubaya
+        v-tab
+          |emrum
+    div.post(v-html="body")
 </template>
 
 <script>
