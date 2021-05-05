@@ -45,19 +45,9 @@
             <Toc :id="id" :toc="toc" :visible="toc_visible" />
             <Post :body="body" />
             <Writer v-if="writer" :writer="writer" />
-            <RelatedBlogs
-              v-if="related_blogs.length > 0"
-              :blogs="related_blogs"
-            />
           </div>
         </div>
       </article>
-      <aside class="aside">
-        <Search />
-        <Categories :categories="categories" />
-        <PopularArticles :contents="popularArticles" />
-        <Latest :contents="contents" />
-      </aside>
     </div>
     <Footer />
   </div>
@@ -117,7 +107,7 @@ export default {
         headers: { 'X-API-KEY': $config.apiKey },
       }
     );
-    const $ = cheerio.load(data.body);
+    const $ = cheerio.load(data.takubaya_body);
     const headings = $('h1, h2, h3').toArray();
     const toc = headings.map((d) => {
       return {

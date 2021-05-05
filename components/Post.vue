@@ -5,10 +5,13 @@
         v-tab
           |banri
         v-tab
-          |takubaya
+          p takubaya
         v-tab
           |emrum
-    div.post(v-html="body")
+      
+      v-tab-items
+        v-tab-item
+          div.post(v-html="body")
 </template>
 
 <script>
@@ -17,7 +20,6 @@ export default {
     body: {
       type: String,
       required: true,
-      default: '',
     },
   },
 };
