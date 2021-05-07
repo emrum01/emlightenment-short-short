@@ -106,7 +106,7 @@ export default {
    */
   plugins: ['~/plugins/vue-scrollto'],
   components: true,
-  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/pwa'],
+  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/pwa', '@nuxtjs/vuetify'],
   /*
    ** Nuxt.js modules
    */

@@ -1,56 +1,24 @@
-<template>
-  <div class="wrapper">
-    <Header />
-    <div class="divider">
-      <article class="article">
-        <div class="ogimageWrap">
-          <picture v-if="ogimage">
-            <source
-              media="(min-width: 1160px)"
-              type="image/webp"
-              :srcset="`${ogimage.url}?w=820&fm=webp, ${ogimage.url}?w=1640&fm=webp 2x`"
-            />
-            <source
-              media="(min-width: 820px)"
-              type="image/webp"
-              :srcset="`${ogimage.url}?w=740&fm=webp, ${ogimage.url}?w=1480&fm=webp 2x`"
-            />
-            <source
-              media="(min-width: 768px)"
-              type="image/webp"
-              :srcset="`${ogimage.url}?w=728&fm=webp, ${ogimage.url}?w=1456&fm=webp 2x`"
-            />
-            <source
-              media="(max-width: 768px)"
-              type="image/webp"
-              :srcset="`${ogimage.url}?w=375&fm=webp, ${ogimage.url}?w=750&fm=webp 2x`"
-            />
-            <img
-              ref="ogimage"
-              :src="ogimage.url + '?w=820&q=100'"
-              class="ogimage"
-              alt
-            />
-          </picture>
-        </div>
-        <Breadcrumb :category="category" />
-        <div class="main">
-          <div class="container">
-            <h1 class="title">{{ title }}</h1>
-            <Meta
-              :created-at="publishedAt || createdAt"
-              :author="writer !== null ? writer.name : ''"
-              :category="category"
-            />
-            <Toc :id="id" :toc="toc" :visible="toc_visible" />
-            <Post :body="body" />
-            <Writer v-if="writer" :writer="writer" />
-          </div>
-        </div>
-      </article>
-    </div>
-    <Footer />
-  </div>
+<template lang="pug">
+  .wrapper
+    Header
+    .divider
+      article.article
+        .ogimageWrap
+          picture(v-if="ogimage")
+            source(media="(min-width: 1160px)" type="image/webp" :srcset="`${ogimage.url}?w=820&fm=webp, ${ogimage.url}?w=1640&fm=webp 2x`")
+            source(media="(min-width: 820px)" type="image/webp" :srcset="`${ogimage.url}?w=740&fm=webp, ${ogimage.url}?w=1480&fm=webp 2x`")
+            source(media="(min-width: 768px)" type="image/webp" :srcset="`${ogimage.url}?w=728&fm=webp, ${ogimage.url}?w=1456&fm=webp 2x`")
+            source(media="(max-width: 768px)" type="image/webp" :srcset="`${ogimage.url}?w=375&fm=webp, ${ogimage.url}?w=750&fm=webp 2x`")
+            img.ogimage(ref="ogimage" :src="ogimage.url + '?w=820&q=100'" alt)
+        Breadcrumb(:category="category")
+        .main
+          .container
+            h1.title {{ title }}
+            Meta(:created-at="publishedAt || createdAt" :author="writer !== null ? writer.name : ''" :category="category")
+            Toc(:id="id" :toc="toc" :visible="toc_visible")
+            Post(:body="body")
+            Writer(v-if="writer" :writer="writer")
+            Footer
 </template>
 
 <script>
