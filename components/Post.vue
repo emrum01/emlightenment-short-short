@@ -1,14 +1,28 @@
 <template lang="pug">
   div
-    div
-      v-tabs
-        v-tab
-          |banri
-        v-tab
-          |takubaya
-        v-tab
-          |emrum
-    div.post(v-html="body")
+    v-card
+      v-tabs(v-model="tab")
+        v-tab(href="#banri")
+          | BANRI
+        v-tab(href="#takubaya")
+          | TAKUBAYA
+        v-tab(href="#emrum")
+          | EMRUM
+
+
+      v-tabs-items(v-model="tab")  
+        v-tab-item(value="banri")
+          v-card
+            .post(v-html="body")
+        v-tab-item(value="takubaya")
+          v-card
+            | {{'ぼんぼこぼこ'}}
+        v-tab-item(value="emrum")
+          v-card
+            | {{'ぼんぼこぼこ'}}
+      v-card
+        .post(v-html="body")
+         
 </template>
 
 <script>
@@ -17,8 +31,13 @@ export default {
     body: {
       type: String,
       required: true,
-      default: '',
     },
+  },
+  data() {
+    return {
+      tab: null,
+      members: ['banri', 'takubaya', 'emrum'],
+    };
   },
 };
 </script>
