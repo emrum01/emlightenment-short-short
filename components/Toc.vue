@@ -1,28 +1,22 @@
 <template>
   <div v-if="visible" class="wrapper">
     <h4 class="title">お題</h4>
-    <ul class="lists">
-      <li v-for="item in toc" :key="item.id" :class="`list ${item.name}`">
-        <n-link v-scroll-to="`#${item.id}`" to>
-          {{ item.text }}
-        </n-link>
-      </li>
-    </ul>
+    <div class="theme-text">{{ theme }}</div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    toc: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
     visible: {
       type: Boolean,
       required: false,
-      default: false,
+      default: true,
+    },
+    theme: {
+      type: String,
+      required: true,
+      default: '',
     },
   },
 };
@@ -30,18 +24,22 @@ export default {
 
 <style scoped>
 .wrapper {
-  background-color: #f7f7fc;
+  display: flex;
+  background-color: #ffdfc1;
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 40px;
+  justify-content: center;
 }
 .title {
   font-size: 16px;
   font-weight: bold;
-  margin: 0 0 10px;
+  margin: 10px;
   border-radius: 5px;
 }
-
+.theme-text {
+  padding: 10px;
+}
 .list {
   padding: 5px 0;
   font-size: 14px;

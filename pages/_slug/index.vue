@@ -15,7 +15,7 @@
           .container
             h1.title {{ title }}
             Meta(:created-at="publishedAt || createdAt" :author="writer !== null ? writer.name : ''" :category="category")
-            Toc(:id="id" :toc="toc" :visible="toc_visible")
+            Toc(:theme="theme")
             Post(:takubayaBody="takubayaBody" :banriBody="banriBody" :emrumBody="emrumBody")
             Writer(v-if="writer" :writer="writer")
             Footer
@@ -110,6 +110,7 @@ export default {
       banriBody: banri.html(),
       takubayaBody: takubaya.html(),
       emrumBody: emrum.html(),
+      theme: data.theme.theme,
     };
   },
   data() {
@@ -231,7 +232,6 @@ export default {
   .container {
     position: relative;
     flex: 1;
-    background-color: #fff;
     margin-left: 80px;
     margin-top: 60px;
     -webkit-font-smoothing: antialiased;
@@ -244,7 +244,7 @@ export default {
     display: block;
     font-weight: bold;
     font-size: 40px;
-    color: #2b2c30;
+    color: #9e8047;
   }
 }
 
@@ -326,7 +326,6 @@ export default {
   .container {
     position: relative;
     flex: 1;
-    background-color: #fff;
     margin-left: 80px;
     -webkit-font-smoothing: antialiased;
   }
@@ -444,7 +443,6 @@ export default {
   .container {
     position: relative;
     flex: 1;
-    background-color: #fff;
     margin-left: 80px;
     -webkit-font-smoothing: antialiased;
   }
@@ -561,7 +559,6 @@ export default {
   .container {
     position: relative;
     flex: 1;
-    background-color: #fff;
     -webkit-font-smoothing: antialiased;
   }
 

@@ -1,24 +1,24 @@
 <template lang="pug">
-  div
+  .blog
     v-card
-      v-tabs(v-model="tab")
+      v-tabs(v-model="tab" background-color="#FBB473")
         v-tab(href="#banri")
-          | BANRI
+          p.tab-text BANRI
         v-tab(href="#takubaya")
-          | TAKUBAYA
+          p.tab-text TAKUBAYA
         v-tab(href="#emrum")
-          | EMRUM
+          p.tab-text EMRUM
 
 
       v-tabs-items(v-model="tab")  
-        v-tab-item(value="banri")
-          v-card
+        v-tab-item(value="banri" transition="v-scroll-y-transition" reverse-transition="v-scroll-y-transition")
+          v-card.blog-contents
             .post(v-html="banriBody")
-        v-tab-item(value="takubaya")
-          v-card
+        v-tab-item(value="takubaya" transition="v-scroll-y-transition" reverse-transition="v-scroll-y-transition")
+          v-card.blog-contents
             .post(v-html="takubayaBody")
-        v-tab-item(value="emrum")
-          v-card
+        v-tab-item(value="emrum" transition="v-scroll-y-transition" reverse-transition="v-scroll-y-transition")
+          v-card.blog-contents
             .post(v-html="emrumBody")
          
 </template>
@@ -26,10 +26,6 @@
 <script>
 export default {
   props: {
-    body: {
-      type: String,
-      required: true,
-    },
     banriBody: {
       type: String,
       default: '',
@@ -57,6 +53,14 @@ export default {
 
 <style scoped>
 @media (min-width: 600px) {
+  .blog-contents {
+    background-color: #ffdfc1;
+    padding: 8%;
+  }
+  .tab-text {
+    font-family: 'OswaldRegularFont';
+    color: #734c28;
+  }
   .post {
     & >>> h1 {
       font-size: 30px;
@@ -169,6 +173,14 @@ export default {
   }
 }
 @media (max-width: 600px) {
+  .blog-contents {
+    background-color: #ffdfc1;
+    padding: 8%;
+  }
+  .tab-text {
+    font-family: 'OswaldRegularFont';
+    color: #734c28;
+  }
   .post {
     font-size: 14px;
 
