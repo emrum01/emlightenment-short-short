@@ -13,15 +13,13 @@
       v-tabs-items(v-model="tab")  
         v-tab-item(value="banri")
           v-card
-            .post(v-html="body")
+            .post(v-html="banriBody")
         v-tab-item(value="takubaya")
           v-card
-            | {{'ぼんぼこぼこ'}}
+            .post(v-html="takubayaBody")
         v-tab-item(value="emrum")
           v-card
-            | {{'ぼんぼこぼこ'}}
-      v-card
-        .post(v-html="body")
+            .post(v-html="emrumBody")
          
 </template>
 
@@ -31,6 +29,21 @@ export default {
     body: {
       type: String,
       required: true,
+    },
+    banriBody: {
+      type: String,
+      default: '',
+      require: true,
+    },
+    emrumBody: {
+      type: String,
+      default: '',
+      require: true,
+    },
+    takubayaBody: {
+      type: String,
+      default: '',
+      require: true,
     },
   },
   data() {

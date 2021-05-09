@@ -16,7 +16,7 @@
             h1.title {{ title }}
             Meta(:created-at="publishedAt || createdAt" :author="writer !== null ? writer.name : ''" :category="category")
             Toc(:id="id" :toc="toc" :visible="toc_visible")
-            Post(:body="body")
+            Post(:takubayaBody="takubayaBody" :banriBody="banriBody" :emrumBody="emrumBody")
             Writer(v-if="writer" :writer="writer")
             Footer
 </template>
@@ -75,7 +75,7 @@ export default {
         headers: { 'X-API-KEY': $config.apiKey },
       }
     );
-    const $ = cheerio.load(data.takubaya_body);
+    const $ = cheerio.load(data.body);
     const headings = $('h1, h2, h3').toArray();
     const toc = headings.map((d) => {
       return {
@@ -95,6 +95,10 @@ export default {
       $(elm).removeAttr('src');
     });
 
+    const banri = cheerio.load(data.banri_body);
+    const takubaya = cheerio.load(data.takubaya_body);
+    const emrum = cheerio.load(data.emrum_body);
+
     return {
       ...data,
       popularArticles,
@@ -103,6 +107,9 @@ export default {
       toc,
       categories: categories.data.contents,
       contents,
+      banriBody: banri.html(),
+      takubayaBody: takubaya.html(),
+      emrumBody: emrum.html(),
     };
   },
   data() {
