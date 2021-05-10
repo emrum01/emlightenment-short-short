@@ -12,6 +12,7 @@
     z-index: 10;
     color: #2b2c30;
     margin-top: 120px;
+    background-color: #fff8dd;
   }
   .cr {
     margin-top: 20px;

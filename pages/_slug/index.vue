@@ -165,10 +165,12 @@ export default {
     width: 1160px;
     margin: 20px auto 0;
     margin-top: 10px;
+    background-color: #fff8dd;
   }
 
   .article {
     width: 820px;
+    background-color: #fff8dd;
   }
 
   .aside {

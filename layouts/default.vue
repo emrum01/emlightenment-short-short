@@ -4,6 +4,15 @@
   </div>
 </template>
 
+<script>
+export default {
+  head: {
+    bodyAttrs: {
+      class: 'background',
+    },
+  },
+};
+</script>
 <style>
 @import '@/assets/styles/reset.css';
 .background {
