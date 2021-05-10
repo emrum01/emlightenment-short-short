@@ -18,7 +18,9 @@
             Toc(:theme="theme")
             Post(:takubayaBody="takubayaBody" :banriBody="banriBody" :emrumBody="emrumBody")
             Writer(v-if="writer" :writer="writer")
-            Footer
+      aside.aside
+        PopularArticles(:content="popularArticles")
+    Footer
 </template>
 
 <script>
@@ -74,25 +76,6 @@ export default {
         headers: { 'X-API-KEY': $config.apiKey },
       }
     );
-    // const $ = cheerio.load(data.body);
-    // const headings = $('h1, h2, h3').toArray();
-    // const toc = headings.map((d) => {
-    //   return {
-    //     text: d.children[0].data,
-    //     id: d.attribs.id,
-    //     name: d.name,
-    //   };
-    // });
-    // $('pre code').each((_, elm) => {
-    //   const res = hljs.highlightAuto($(elm).text());
-    //   $(elm).html(res.value);
-    //   $(elm).addClass('hljs');
-    // });
-    // $('img').each((_, elm) => {
-    //   $(elm).attr('class', 'lazyload');
-    //   $(elm).attr('data-src', elm.attribs.src);
-    //   $(elm).removeAttr('src');
-    // });
 
     const banri = cheerio.load(data.banri_body);
     const takubaya = cheerio.load(data.takubaya_body);
@@ -165,12 +148,10 @@ export default {
     width: 1160px;
     margin: 20px auto 0;
     margin-top: 10px;
-    background-color: #fff8dd;
   }
 
   .article {
     width: 820px;
-    background-color: #fff8dd;
   }
 
   .aside {
@@ -243,7 +224,7 @@ export default {
     display: block;
     font-weight: bold;
     font-size: 40px;
-    color: #734c28;
+    color: #5f3b1a;
   }
 }
 
