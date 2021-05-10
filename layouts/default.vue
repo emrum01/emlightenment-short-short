@@ -1,6 +1,6 @@
 <template>
-  <div class="background">
-    <nuxt />
+  <div>
+    <nuxt class="background" />
   </div>
 </template>
 
@@ -8,5 +8,6 @@
 @import '@/assets/styles/reset.css';
 .background {
   background-color: #fff8dd;
+  height: 100vh;
 }
 </style>

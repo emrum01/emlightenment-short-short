@@ -1,6 +1,6 @@
 <template lang="pug">
   .blog
-    v-card
+    v-card.center
       v-tabs(v-model="tab" background-color="#FBB473")
         v-tab(href="#banri")
           p.tab-text BANRI
@@ -66,7 +66,6 @@ export default {
       font-size: 30px;
       font-weight: bold;
       margin: 40px 0 20px;
-      background-color: #eee;
       padding: 10px 20px;
       border-radius: 5px;
     }
@@ -183,12 +182,12 @@ export default {
   }
   .post {
     font-size: 14px;
+    justify-content: center;
 
     & >>> h1 {
       font-size: 24px;
       font-weight: bold;
       margin: 40px 0 20px;
-      background-color: #eee;
       padding: 10px 20px;
       border-radius: 5px;
     }
