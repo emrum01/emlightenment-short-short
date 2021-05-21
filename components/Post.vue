@@ -1,42 +1,14 @@
 <template lang="pug">
   .blog
-    v-card.center
-      v-tabs(v-model="tab" background-color="#FBB473")
-        v-tab(href="#banri")
-          p.tab-text BANRI
-        v-tab(href="#takubaya")
-          p.tab-text TAKUBAYA
-        v-tab(href="#emrum")
-          p.tab-text EMRUM
-
-
-      v-tabs-items(v-model="tab")  
-        v-tab-item(value="banri" transition="v-scroll-y-transition" reverse-transition="v-scroll-y-transition")
-          v-card.blog-contents
-            .post(v-html="banriBody")
-        v-tab-item(value="takubaya" transition="v-scroll-y-transition" reverse-transition="v-scroll-y-transition")
-          v-card.blog-contents
-            .post(v-html="takubayaBody")
-        v-tab-item(value="emrum" transition="v-scroll-y-transition" reverse-transition="v-scroll-y-transition")
-          v-card.blog-contents
-            .post(v-html="emrumBody")
+    .post(v-html="body")
+      
          
 </template>
 
 <script>
 export default {
   props: {
-    banriBody: {
-      type: String,
-      default: '',
-      require: true,
-    },
-    emrumBody: {
-      type: String,
-      default: '',
-      require: true,
-    },
-    takubayaBody: {
+    body: {
       type: String,
       default: '',
       require: true,

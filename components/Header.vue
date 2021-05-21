@@ -24,6 +24,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variable.scss';
 @media (min-width: 800px) {
   .header {
     position: fixed;
@@ -37,14 +38,14 @@ export default {
     padding: 12px 40px;
     z-index: 10;
     border-bottom: 1px solid var(--color-border);
-    background-color: #3f3934;
+    background-color: $color-secondary-base;
   }
 
   .logo {
     display: flex;
     font-family: 'HitchhikerFont';
     justify-content: center;
-    color: #e68048;
+    color: $color-primary-base;
   }
 }
 

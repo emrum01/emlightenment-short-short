@@ -1,7 +1,13 @@
 <template>
   <div v-if="visible" class="wrapper">
-    <h4 class="title">お題</h4>
-    <div class="theme-text">{{ theme }}</div>
+    <h4 class="title">目次</h4>
+    <ul class="lists">
+      <li v-for="item in toc" :key="item.id" :class="`list ${item.name}`">
+        <n-link v-scroll-to="`#${item.id}`" to>
+          {{ item.text }}
+        </n-link>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -13,32 +19,35 @@ export default {
       required: false,
       default: true,
     },
-    theme: {
-      type: String,
+    toc: {
+      type: Array,
       required: true,
-      default: '',
+      default: () => [],
     },
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variable.scss';
 .wrapper {
-  display: flex;
-  background-color: #ffdfc1;
+  background-color: $color-content-lighten;
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 40px;
-  justify-content: center;
+  color: $color-text-base;
 }
 .title {
   font-size: 16px;
   font-weight: bold;
   margin: 10px;
+  padding: 20px;
   border-radius: 5px;
+  background-color: $color-background-darken;
 }
 .theme-text {
   padding: 10px;
+  font-size: 16px;
 }
 .list {
   padding: 5px 0;
