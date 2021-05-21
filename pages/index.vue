@@ -324,6 +324,11 @@ export default {
     width: 740px;
   }
 
+  .card {
+    width: 740px;
+    padding: 15px 15px 10px 15px;
+    background-color: $color-background-darken;
+  }
   .aside {
     margin-top: 60px;
   }
@@ -443,7 +448,12 @@ export default {
   .article {
     width: 100%;
   }
-
+  .card {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 15px 10px 15px;
+    background-color: $color-background-darken;
+  }
   .aside {
     margin-top: 60px;
     width: 100%;
