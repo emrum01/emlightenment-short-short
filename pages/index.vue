@@ -172,7 +172,7 @@ export default {
       background-color: #3067af;
 
       a {
-        color: #fff;
+        color: $color-background-darken;
       }
     }
 
@@ -302,7 +302,7 @@ export default {
       background-color: #3067af;
 
       a {
-        color: #fff;
+        color: $background-;
       }
     }
 
