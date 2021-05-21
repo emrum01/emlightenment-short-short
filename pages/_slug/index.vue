@@ -15,11 +15,14 @@
           .container
             h1.title {{ title }}
             Meta(:created-at="publishedAt || createdAt" :author="writer !== null ? writer.name : ''" :category="category")
-            Toc(:theme="theme")
-            Post(:takubayaBody="takubayaBody" :banriBody="banriBody" :emrumBody="emrumBody")
+            Toc(:toc="toc")
+            Post(:body="body")
             Writer(v-if="writer" :writer="writer")
+            RelatedBlogs( 
+              :blogs="related_blogs")
       aside.aside
         PopularArticles(:content="popularArticles")
+        Latest(:contents="contents")
     Footer
 </template>
 
@@ -77,26 +80,35 @@ export default {
       }
     );
 
-    const banri = cheerio.load(data.banri_body);
-    const takubaya = cheerio.load(data.takubaya_body);
-    const emrum = cheerio.load(data.emrum_body);
-
+    const $ = cheerio.load(data.body);
+    const headings = $('h1, h2, h3').toArray();
+    const toc = headings.map((d) => {
+      return {
+        text: d.children[0].data,
+        id: d.attribs.id,
+        name: d.name,
+      };
+    });
+    $('img').each((_, elm) => {
+      $(elm).attr('class', 'lazyload');
+      $(elm).attr('data-src', elm.attribs.src);
+      $(elm).removeAttr('src');
+    });
     return {
       ...data,
       popularArticles,
       banner,
       categories: categories.data.contents,
       contents,
-      banriBody: banri.html(),
-      takubayaBody: takubaya.html(),
-      emrumBody: emrum.html(),
-      theme: data.theme.theme,
+      body: $.html(),
+      toc,
     };
   },
   data() {
     return {
       publishedAt: '',
       ogimage: null,
+      test: 'test',
     };
   },
   head() {
@@ -126,12 +138,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variable.scss';
+
 .category {
   display: inline-block;
   padding: 2px 10px;
   border-radius: 3px;
-  color: #fff;
+  color: $color-content-base;
   margin-top: 10px;
   font-size: 14px;
   font-weight: bold;
@@ -224,7 +238,7 @@ export default {
     display: block;
     font-weight: bold;
     font-size: 40px;
-    color: #5f3b1a;
+    color: $color-secondary-base;
   }
 }
 
@@ -434,7 +448,7 @@ export default {
     display: block;
     font-weight: bold;
     font-size: 40px;
-    color: #2b2c30;
+    color: $color-text-base;
   }
 }
 @media (max-width: 600px) {
@@ -475,7 +489,7 @@ export default {
       margin: 0 10px;
     }
 
-    &:last-child&::after {
+    &:last-child &::after {
       content: '';
       margin: 0;
     }
