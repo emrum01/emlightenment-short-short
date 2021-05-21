@@ -15,16 +15,20 @@
           .container
             h1.title {{ title }}
             Meta(:created-at="publishedAt || createdAt" :author="writer !== null ? writer.name : ''" :category="category")
-            Toc(:id="id" :toc="toc" :visible="toc_visible")
+            Toc(:toc="toc")
             Post(:body="body")
             Writer(v-if="writer" :writer="writer")
-            Footer
+            RelatedBlogs( 
+              :blogs="related_blogs")
+      aside.aside
+        PopularArticles(:content="popularArticles")
+        Latest(:contents="contents")
+    Footer
 </template>
 
 <script>
 import axios from 'axios';
 import cheerio from 'cheerio';
-import hljs from 'highlight.js';
 
 export default {
   async asyncData({ params, payload, $config }) {
@@ -75,7 +79,8 @@ export default {
         headers: { 'X-API-KEY': $config.apiKey },
       }
     );
-    const $ = cheerio.load(data.takubaya_body);
+
+    const $ = cheerio.load(data.body);
     const headings = $('h1, h2, h3').toArray();
     const toc = headings.map((d) => {
       return {
@@ -84,31 +89,26 @@ export default {
         name: d.name,
       };
     });
-    $('pre code').each((_, elm) => {
-      const res = hljs.highlightAuto($(elm).text());
-      $(elm).html(res.value);
-      $(elm).addClass('hljs');
-    });
     $('img').each((_, elm) => {
       $(elm).attr('class', 'lazyload');
       $(elm).attr('data-src', elm.attribs.src);
       $(elm).removeAttr('src');
     });
-
     return {
       ...data,
       popularArticles,
       banner,
-      body: $.html(),
-      toc,
       categories: categories.data.contents,
       contents,
+      body: $.html(),
+      toc,
     };
   },
   data() {
     return {
       publishedAt: '',
       ogimage: null,
+      test: 'test',
     };
   },
   head() {
@@ -138,12 +138,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variable.scss';
+
 .category {
   display: inline-block;
   padding: 2px 10px;
   border-radius: 3px;
-  color: #fff;
+  color: $color-content-base;
   margin-top: 10px;
   font-size: 14px;
   font-weight: bold;
@@ -224,7 +226,6 @@ export default {
   .container {
     position: relative;
     flex: 1;
-    background-color: #fff;
     margin-left: 80px;
     margin-top: 60px;
     -webkit-font-smoothing: antialiased;
@@ -237,7 +238,7 @@ export default {
     display: block;
     font-weight: bold;
     font-size: 40px;
-    color: #2b2c30;
+    color: $color-secondary-base;
   }
 }
 
@@ -319,7 +320,6 @@ export default {
   .container {
     position: relative;
     flex: 1;
-    background-color: #fff;
     margin-left: 80px;
     -webkit-font-smoothing: antialiased;
   }
@@ -437,7 +437,6 @@ export default {
   .container {
     position: relative;
     flex: 1;
-    background-color: #fff;
     margin-left: 80px;
     -webkit-font-smoothing: antialiased;
   }
@@ -449,7 +448,7 @@ export default {
     display: block;
     font-weight: bold;
     font-size: 40px;
-    color: #2b2c30;
+    color: $color-text-base;
   }
 }
 @media (max-width: 600px) {
@@ -490,7 +489,7 @@ export default {
       margin: 0 10px;
     }
 
-    &:last-child&::after {
+    &:last-child &::after {
       content: '';
       margin: 0;
     }
@@ -554,7 +553,6 @@ export default {
   .container {
     position: relative;
     flex: 1;
-    background-color: #fff;
     -webkit-font-smoothing: antialiased;
   }
 

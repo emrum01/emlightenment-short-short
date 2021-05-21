@@ -21,16 +21,20 @@
                   alt
                 />
               </picture>
-              <dl class="content">
-                <dt class="title">{{ content.title }}</dt>
-                <dd>
-                  <Meta
-                    :created-at="content.publishedAt || content.createdAt"
-                    :author="content.writer !== null ? content.writer.name : ''"
-                    :category="content.category"
-                  />
-                </dd>
-              </dl>
+              <v-card class="card">
+                <dl class="content">
+                  <dt class="title">{{ content.title }}</dt>
+                  <dd>
+                    <Meta
+                      :created-at="content.publishedAt || content.createdAt"
+                      :author="
+                        content.writer !== null ? content.writer.name : ''
+                      "
+                      :category="content.category"
+                    />
+                  </dd>
+                </dl>
+              </v-card>
             </nuxt-link>
           </li>
         </ul>
@@ -140,6 +144,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variable.scss';
 @media (min-width: 1160px) {
   .loader {
     color: #ccc;
@@ -190,6 +195,12 @@ export default {
   .container {
     width: 820px;
     margin-top: 60px;
+  }
+
+  .card {
+    width: 796px;
+    padding: 15px 15px 10px 15px;
+    background-color: $color-background-darken;
   }
 
   .aside {
