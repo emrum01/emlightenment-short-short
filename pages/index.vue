@@ -172,7 +172,7 @@ export default {
       background-color: #3067af;
 
       a {
-        color: $color-background-darken;
+        color: #fff;
       }
     }
 
@@ -302,7 +302,7 @@ export default {
       background-color: #3067af;
 
       a {
-        color: $background-;
+        color: #fff;
       }
     }
 
@@ -383,6 +383,7 @@ export default {
   .link {
     display: flex;
     justify-content: space-between;
+    background-color: $color-background-darken;
   }
 
   .ogimage {
