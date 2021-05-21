@@ -28,7 +28,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variable.scss';
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
@@ -36,10 +37,10 @@ export default {
 }
 
 .breadcrumbList {
-  color: #616269;
+  color: $color-secondary-base;
 
   a {
-    color: #331cbf;
+    color: $color-secondary-base;
   }
 
   &::after {
@@ -47,7 +48,7 @@ export default {
     margin: 0 10px;
   }
 
-  &:last-child&::after {
+  &:last-child &::after {
     content: '';
     margin: 0;
   }

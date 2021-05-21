@@ -2,3 +2,15 @@
   font-family: 'HitchhikerFont'; // <-好きな名前をつけれます。
   src: url('@/assets/font/Hitchhiker.ttf') format('truetype');
 }
+
+$color-background-base: #fff8dd;
+$color-background-darken: darken($color-background-base, 4%);
+$color-primary-base: #e68048;
+$color-secondary-base: #401c09;
+
+$color-text-base: #291206;
+$color-blog-text-base: #130803;
+
+$color-content-base: #fbb473;
+$color-content-lighten: lighten($color-content-base, 10%);
+$blog-font-size: 14px;

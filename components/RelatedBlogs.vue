@@ -43,12 +43,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variable.scss';
 @media (min-width: 1160px) {
   .pageTitle {
     font-size: 20px;
     font-weight: bold;
-    background-color: #eee;
+    background-color: $color-content-base;
     padding: 6px 10px;
     margin: 60px 0 40px;
     border-radius: 5px;
@@ -89,7 +90,7 @@ export default {
   .pageTitle {
     font-size: 20px;
     font-weight: bold;
-    background-color: #eee;
+    background-color: $color-content-base;
     padding: 6px 10px;
     margin: 60px 0 40px;
     border-radius: 5px;
@@ -130,7 +131,7 @@ export default {
   .pageTitle {
     font-size: 20px;
     font-weight: bold;
-    background-color: #eee;
+    background-color: $color-content-base;
     padding: 6px 10px;
     margin: 40px 0 20px;
     border-radius: 5px;

@@ -37,7 +37,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variable.scss';
 @media (min-width: 600px) {
   .meta {
     padding: 10px 0 40px;
@@ -48,8 +49,8 @@ export default {
   .category {
     display: inline-block;
     padding: 2px 8px;
-    border: 1px solid #331cbf;
-    color: #331cbf;
+    border: 1px solid $color-primary-base;
+    color: $color-primary-base;
     white-space: nowrap;
     border-radius: 3px;
     font-size: 14px;
@@ -59,7 +60,7 @@ export default {
   .timestamp {
     display: inline-flex;
     align-items: center;
-    color: #616269;
+    color: $color-secondary-base;
 
     margin-right: 20px;
     white-space: nowrap;
@@ -73,7 +74,7 @@ export default {
   .author {
     display: inline-flex;
     align-items: center;
-    color: #616269;
+    color: $color-secondary-base;
     white-space: nowrap;
 
     img {
@@ -91,8 +92,8 @@ export default {
   .category {
     display: inline-block;
     padding: 2px 8px;
-    border: 1px solid #331cbf;
-    color: #331cbf;
+    border: 1px solid $color-primary-base;
+    color: $color-primary-base;
     white-space: nowrap;
     border-radius: 3px;
     font-size: 14px;
@@ -102,7 +103,7 @@ export default {
   .timestamp {
     display: inline-flex;
     align-items: center;
-    color: #616269;
+    color: $color-secondary-base;
     margin-right: 20px;
     white-space: nowrap;
 
@@ -115,7 +116,7 @@ export default {
   .author {
     display: inline-flex;
     align-items: center;
-    color: #616269;
+    color: $color-secondary-base;
     white-space: nowrap;
 
     img {

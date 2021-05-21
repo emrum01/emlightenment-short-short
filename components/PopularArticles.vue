@@ -34,7 +34,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variable.scss';
 @media (min-width: 1160px) {
   .wrapper {
     padding-bottom: 40px;
@@ -43,7 +44,7 @@ export default {
   .pageTitle {
     font-size: 20px;
     font-weight: bold;
-    background-color: #eee;
+    background-color: $color-content-base;
     padding: 6px 10px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -79,7 +80,7 @@ export default {
   .pageTitle {
     font-size: 20px;
     font-weight: bold;
-    background-color: #eee;
+    background-color: $color-content-base;
     padding: 6px 10px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -115,7 +116,7 @@ export default {
   .pageTitle {
     font-size: 20px;
     font-weight: bold;
-    background-color: #eee;
+    background-color: $color-content-base;
     padding: 6px 10px;
     margin-bottom: 10px;
     border-radius: 5px;

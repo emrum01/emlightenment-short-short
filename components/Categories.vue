@@ -23,7 +23,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variable.scss';
 @media (min-width: 1160px) {
   .wrapper {
     padding: 40px 0;
@@ -32,14 +33,14 @@ export default {
   .pageTitle {
     font-size: 20px;
     font-weight: bold;
-    background-color: #eee;
+    background-color: $color-content-base;
     padding: 6px 10px;
     margin-bottom: 10px;
     border-radius: 5px;
   }
 
   .list {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $color-content-base;
 
     a {
       display: block;
@@ -59,14 +60,14 @@ export default {
   .pageTitle {
     font-size: 20px;
     font-weight: bold;
-    background-color: #eee;
+    background-color: $color-content-base;
     padding: 6px 10px;
     margin-bottom: 10px;
     border-radius: 5px;
   }
 
   .list {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $color-content-base;
 
     a {
       display: block;
@@ -86,14 +87,14 @@ export default {
   .pageTitle {
     font-size: 20px;
     font-weight: bold;
-    background-color: #eee;
+    background-color: $color-content-base;
     padding: 6px 10px;
     margin-bottom: 10px;
     border-radius: 5px;
   }
 
   .list {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $color-content-base;
 
     a {
       display: block;
