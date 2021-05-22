@@ -1,70 +1,78 @@
-<template lang="pug">
-  .wrapper
-    Header
-    .divider
-      article.article
-        .ogimageWrap
-          picture(v-if="ogimage")
-            source(media="(min-width: 1160px)" type="image/webp" :srcset="`${ogimage.url}?w=820&fm=webp, ${ogimage.url}?w=1640&fm=webp 2x`")
-            source(media="(min-width: 820px)" type="image/webp" :srcset="`${ogimage.url}?w=740&fm=webp, ${ogimage.url}?w=1480&fm=webp 2x`")
-            source(media="(min-width: 768px)" type="image/webp" :srcset="`${ogimage.url}?w=728&fm=webp, ${ogimage.url}?w=1456&fm=webp 2x`")
-            source(media="(max-width: 768px)" type="image/webp" :srcset="`${ogimage.url}?w=375&fm=webp, ${ogimage.url}?w=750&fm=webp 2x`")
-            img.ogimage(ref="ogimage" :src="ogimage.url + '?w=820&q=100'" alt)
-        Breadcrumb(:category="category")
-        .main
-          .container
-            h1.title {{ title }}
-            Meta(:created-at="publishedAt || createdAt" :author="writer !== null ? writer.name : ''" :category="category")
-            Toc(:toc="toc")
-            Post(:body="body")
-            Writer(v-if="writer" :writer="writer")
-            RelatedBlogs( 
-              :blogs="related_blogs")
-      aside.aside
-        PopularArticles(:content="popularArticles")
-        Latest(:contents="contents")
-    Footer
+<template>
+  <div class="wrapper">
+    <Header />
+    <div class="divider">
+      <p v-if="!data.id" class="loading">Now Loading...</p>
+      <article v-if="data.id" class="article">
+        <div v-if="data.ogimage" class="ogimageWrap">
+          <img
+            ref="ogimage"
+            :src="data.ogimage.url + '?w=820&q=100'"
+            :srcset="
+              data.ogimage.url +
+              '?w=375&q=100 375w,' +
+              data.ogimage.url +
+              '?w=750&q=100 750w,' +
+              data.ogimage.url +
+              '?w=820&q=100 820w'
+            "
+            class="ogimage"
+          />
+        </div>
+        <Breadcrumb :category="data.category" />
+        <div class="main">
+          <Share :id="data.id" :title="data.title" />
+          <div class="container">
+            <h1 class="title">{{ data.title }}</h1>
+            <Meta
+              :created-at="data.publishedAt || data.createdAt"
+              :author="data.writer !== null ? data.writer.name : ''"
+              :category="data.category"
+            />
+            <Toc :id="data.id" :toc="toc" :visible="data.toc_visible" />
+            <Post :body="data.body" />
+            <Writer v-if="data.writer" :writer="data.writer" />
+            <Partner v-if="data.partner" :partner="data.partner" />
+            <Conversion :id="data.id" />
+            <RelatedBlogs
+              v-if="data.related_blogs.length > 0"
+              :blogs="data.related_blogs"
+            />
+          </div>
+        </div>
+      </article>
+      <aside class="aside">
+        <Banner :id="`draft-${data.id}`" :banner="banner" />
+        <Search />
+        <Categories :categories="categories" />
+        <Latest :contents="contents" />
+      </aside>
+    </div>
+    <Footer />
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
 import cheerio from 'cheerio';
+import hljs from 'highlight.js';
 
 export default {
-  async asyncData({ params, payload, $config }) {
-    const data =
-      payload !== undefined
-        ? payload.content
-        : (
-            await axios.get(
-              `https://${$config.serviceId}.microcms.io/api/v1/blog/${params.slug}?depth=2`,
-              {
-                headers: { 'X-API-KEY': $config.apiKey },
-              }
-            )
-          ).data;
-    const popularArticles =
-      payload !== undefined
-        ? payload.popularArticles
-        : (
-            await axios.get(
-              `https://${$config.serviceId}.microcms.io/api/v1/popular-articles`,
-              {
-                headers: { 'X-API-KEY': $config.apiKey },
-              }
-            )
-          ).data.articles;
-    const banner =
-      payload !== undefined
-        ? payload.banner
-        : (
-            await axios.get(
-              `https://${$config.serviceId}.microcms.io/api/v1/banner`,
-              {
-                headers: { 'X-API-KEY': $config.apiKey },
-              }
-            )
-          ).data;
+  async asyncData({ $config }) {
+    const categories = await axios.get(
+      `https://${$config.serviceId}.microcms.io/api/v1/categories?limit=100`,
+      {
+        headers: { 'X-API-KEY': $config.apiKey },
+      }
+    );
+    const banner = (
+      await axios.get(
+        `https://${$config.serviceId}.microcms.io/api/v1/banner`,
+        {
+          headers: { 'X-API-KEY': $config.apiKey },
+        }
+      )
+    ).data;
     const {
       data: { contents },
     } = await axios.get(
@@ -73,13 +81,68 @@ export default {
         headers: { 'X-API-KEY': $config.apiKey },
       }
     );
-    const categories = await axios.get(
-      `https://${$config.serviceId}.microcms.io/api/v1/categories?limit=100`,
-      {
-        headers: { 'X-API-KEY': $config.apiKey },
-      }
-    );
+    return {
+      categories: categories.data.contents,
+      banner,
+      contents,
+    };
+  },
+  data() {
+    return {
+      data: {
+        id: '',
+        ogimage: {
+          url: '',
+        },
+        body: '',
+        title: '',
+        createdAt: '',
+        publishedAt: '',
+        toc_visible: false,
+        writer: {
+          id: '',
+          name: '',
+          image: {
+            url: '',
+          },
+          text: '',
+        },
+        partner: {
+          id: '',
+          company: '',
+          url: '',
+          description: '',
+          logo: {
+            url: '',
+          },
+        },
+        category: {
+          name: '',
+          color: '',
+        },
+        related_blogs: [],
+      },
+      toc: [],
+      contents: [],
+      categories: [],
+    };
+  },
+  async created() {
+    const query = this.$route.query;
+    if (query.id === undefined || query.draftKey === undefined) {
+      return;
+    }
+    const { data, error } = await axios
+      .get(
+        `/.netlify/functions/draft?id=${query.id}&draftKey=${query.draftKey}`
+      )
+      .catch((error) => ({ error }));
+    if (error) {
+      return;
+    }
+    this.data = data;
 
+    // 目次作成
     const $ = cheerio.load(data.body);
     const headings = $('h1, h2, h3').toArray();
     const toc = headings.map((d) => {
@@ -89,77 +152,56 @@ export default {
         name: d.name,
       };
     });
-    $('img').each((_, elm) => {
-      $(elm).attr('class', 'lazyload');
-      $(elm).attr('data-src', elm.attribs.src);
-      $(elm).removeAttr('src');
+    this.toc = toc;
+    $('pre code').each((_, elm) => {
+      const res = hljs.highlightAuto($(elm).text());
+      $(elm).html(res.value);
+      $(elm).addClass('hljs');
     });
-    return {
-      ...data,
-      popularArticles,
-      banner,
-      categories: categories.data.contents,
-      contents,
-      body: $.html(),
-      toc,
-    };
-  },
-  data() {
-    return {
-      publishedAt: '',
-      test: 'test',
-      id: '',
-      ogimage: {
-        url: '',
-      },
-      body: '',
-      title: '',
-      createdAt: '',
-      toc_visible: false,
-      writer: {
-        id: '',
-        name: '',
-        image: {
-          url: '',
-        },
-        text: '',
-      },
-      partner: {
-        id: '',
-        company: '',
-        url: '',
-        description: '',
-        logo: {
-          url: '',
-        },
-      },
-      category: {
-        name: '',
-        color: '',
-      },
-      related_blogs: [],
-    };
+    this.data.body = $.html();
   },
   head() {
     return {
       title: this.title,
       meta: [
-        { hid: 'description', name: 'description', content: this.description },
-        { hid: 'og:title', property: 'og:title', content: this.title },
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.data && this.data.description,
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: this.data && this.data.title,
+        },
         {
           hid: 'og:description',
           property: 'og:description',
-          content: this.description,
+          content: this.data && this.data.description,
         },
         {
           hid: 'og:url',
           property: 'og:url',
-          content: `https://blog.microcms.io/${this.id}/`,
+          content: `https://blog.microcms.io/${this.data && this.data.id}`,
         },
         {
           hid: 'og:image',
           property: 'og:image',
-          content: this.ogimage && this.ogimage.url,
+          content: this.data && this.data.ogimage && this.data.ogimage.url,
+        },
+      ],
+      link: [
+        {
+          rel: 'stylesheet',
+          href:
+            'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css',
+        },
+      ],
+      script: [
+        {
+          src:
+            'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js',
+          async: true,
         },
       ],
     };
@@ -167,17 +209,19 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import '@/assets/scss/_variable.scss';
-
+<style scoped>
 .category {
   display: inline-block;
   padding: 2px 10px;
   border-radius: 3px;
-  color: $color-content-base;
+  color: #fff;
   margin-top: 10px;
   font-size: 14px;
   font-weight: bold;
+}
+
+.loading {
+  color: var(--color-text-off);
 }
 
 @media (min-width: 1160px) {
@@ -190,7 +234,6 @@ export default {
     justify-content: space-between;
     width: 1160px;
     margin: 20px auto 0;
-    margin-top: 10px;
   }
 
   .article {
@@ -199,7 +242,6 @@ export default {
 
   .aside {
     width: 300px;
-    margin-top: 60px;
   }
 
   .main {
@@ -218,6 +260,11 @@ export default {
     background-color: #2b2c30;
     color: #fff;
     border-radius: 5px;
+
+    img {
+      width: 160px;
+      margin-top: 10px;
+    }
 
     p {
       margin-top: 30px;
@@ -250,13 +297,14 @@ export default {
   .ogimage {
     display: block;
     width: 100%;
+    transition: transform 0.5s ease, opacity 0.5s ease;
   }
 
   .container {
     position: relative;
     flex: 1;
+    background-color: #fff;
     margin-left: 80px;
-    margin-top: 60px;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -267,7 +315,7 @@ export default {
     display: block;
     font-weight: bold;
     font-size: 40px;
-    color: $color-secondary-base;
+    color: #2b2c30;
   }
 }
 
@@ -344,11 +392,13 @@ export default {
   .ogimage {
     display: block;
     width: 100%;
+    transition: transform 0.5s ease;
   }
 
   .container {
     position: relative;
     flex: 1;
+    background-color: #fff;
     margin-left: 80px;
     -webkit-font-smoothing: antialiased;
   }
@@ -461,11 +511,13 @@ export default {
   .ogimage {
     display: block;
     width: 100%;
+    transition: transform 0.5s ease;
   }
 
   .container {
     position: relative;
     flex: 1;
+    background-color: #fff;
     margin-left: 80px;
     -webkit-font-smoothing: antialiased;
   }
@@ -477,7 +529,7 @@ export default {
     display: block;
     font-weight: bold;
     font-size: 40px;
-    color: $color-text-base;
+    color: #2b2c30;
   }
 }
 @media (max-width: 600px) {
@@ -518,7 +570,7 @@ export default {
       margin: 0 10px;
     }
 
-    &:last-child &::after {
+    &:last-child&::after {
       content: '';
       margin: 0;
     }
@@ -577,11 +629,13 @@ export default {
   .ogimage {
     display: block;
     width: 100%;
+    transition: transform 0.5s ease;
   }
 
   .container {
     position: relative;
     flex: 1;
+    background-color: #fff;
     -webkit-font-smoothing: antialiased;
   }
 
