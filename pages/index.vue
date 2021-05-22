@@ -258,6 +258,7 @@ export default {
   .link {
     display: flex;
     justify-content: space-between;
+    background-color: #fff3c3;
   }
 
   .ogimage {
