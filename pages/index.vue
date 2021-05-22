@@ -250,7 +250,6 @@ export default {
 
   .list {
     padding: 20px 0;
-    background-color: $color-background-darken;
   }
 
   .link {
