@@ -21,20 +21,16 @@
                   alt
                 />
               </picture>
-              <v-card class="card" color="card-color">
-                <dl class="content">
-                  <dt class="title">{{ content.title }}</dt>
-                  <dd>
-                    <Meta
-                      :created-at="content.publishedAt || content.createdAt"
-                      :author="
-                        content.writer !== null ? content.writer.name : ''
-                      "
-                      :category="content.category"
-                    />
-                  </dd>
-                </dl>
-              </v-card>
+              <dl class="content">
+                <dt class="title">{{ content.title }}</dt>
+                <dd>
+                  <Meta
+                    :created-at="content.publishedAt || content.createdAt"
+                    :author="content.writer !== null ? content.writer.name : ''"
+                    :category="content.category"
+                  />
+                </dd>
+              </dl>
             </nuxt-link>
           </li>
         </ul>
@@ -254,6 +250,7 @@ export default {
 
   .list {
     padding: 20px 0;
+    background-color: $color-background-darken;
   }
 
   .link {
@@ -380,12 +377,12 @@ export default {
 
   .list {
     padding: 20px 0;
+    background-color: $color-background-darken;
   }
 
   .link {
     display: flex;
     justify-content: space-between;
-    background-color: $color-background-darken;
   }
 
   .ogimage {
@@ -507,6 +504,7 @@ export default {
   .list {
     padding: 32px 0 0;
     border-bottom: 1px solid #eee;
+    background-color: $color-background-darken;
 
     &:first-child {
       padding-top: 16px;
