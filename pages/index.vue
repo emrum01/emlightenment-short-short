@@ -21,7 +21,7 @@
                   alt
                 />
               </picture>
-              <v-card class="card">
+              <v-card class="card" color="card-color">
                 <dl class="content">
                   <dt class="title">{{ content.title }}</dt>
                   <dd>
@@ -200,9 +200,10 @@ export default {
   .card {
     width: 796px;
     padding: 15px 15px 10px 15px;
+  }
+  .card-color {
     background-color: $color-background-darken;
   }
-
   .aside {
     width: 300px;
     margin-top: 60px;
